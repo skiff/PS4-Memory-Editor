@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="PS4_Elf_Loader.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="PS4IP" Type="System.String" Scope="User">
+      <Value Profile="(Default)">192.168.1.1</Value>
+    </Setting>
+    <Setting Name="PS4Version" Type="System.String" Scope="User">
+      <Value Profile="(Default)">4.55</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
