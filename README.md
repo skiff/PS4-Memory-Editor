@@ -2,11 +2,11 @@
 ELF Loader and Memory editor for PS4s on 4.55 and 5.05 using jkpatch
 
 # Features
-Realtime Memory Editing
-Memory Dumping to bin
-PS4 ELF Injector
-PS4 Process Viewer
-Socket Listener for Output (Not Working)
+- Realtime Memory Editing
+- Memory Dumping to bin
+- PS4 ELF Injector
+- PS4 Process Viewer
+- Socket Listener for Output (Not Working)
 
 # Usage
 1) Enter PS4 IP and select version
