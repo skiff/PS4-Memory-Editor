@@ -190,7 +190,7 @@ namespace PS4_Elf_Loader {
             listenerOn = false;
 
             IPAddress ipAddress = IPAddress.Parse("127.0.0.1");
-            IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 29386);
+            IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 29975);
             Socket signalEnd = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             signalEnd.Connect(localEndPoint);
             signalEnd.Send(System.Text.Encoding.ASCII.GetBytes("Stopping Listener\n"));
@@ -205,7 +205,7 @@ namespace PS4_Elf_Loader {
 
         private void SocketThread(IProgress<string> progress) {
             IPAddress ipAddress = IPAddress.Parse("127.0.0.1");
-            IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 29386);
+            IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 29975);
             ServerListener = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
             try {
@@ -239,7 +239,7 @@ namespace PS4_Elf_Loader {
             ServerListener.Close();
         }
 
-        private uint min(uint a, uint b) {
+        private ulong min(ulong a, ulong b) {
             if (a < b)
                 return a;
             return b;
@@ -249,23 +249,26 @@ namespace PS4_Elf_Loader {
             if (selectedProcess != null && pList != null) {
                 try {
                     Process process = pList.FindProcess(selectedProcess);
-                    uint address = Convert.ToUInt32(textBox5.Text, 16);
-                    uint totalSize = Convert.ToUInt32(textBox6.Text, 16);
+                    ulong address = Convert.ToUInt64(textBox5.Text, 16);
+                    ulong totalSize = Convert.ToUInt64(textBox6.Text, 16);
                     int fileOffset = 0;
 
-                    FileStream stream = new FileStream(@"memoryDump.bin", FileMode.Create);
+                    byte[] buffer = new byte[totalSize];
 
-                    while(totalSize > 0) {
+                    while (totalSize > 0)
+                    {
                         int sizeToDump = (int)min(0x10000, totalSize);
                         byte[] memory = PS4.ReadMemory(process.pid, address, sizeToDump);
-                        stream.Write(memory, fileOffset, sizeToDump);
+
+                        Array.Copy(memory, 0, buffer, fileOffset, sizeToDump);
 
                         address += (uint)sizeToDump;
                         totalSize -= (uint)sizeToDump;
                         fileOffset += sizeToDump;
                     }
 
-                    stream.Close();
+                    File.WriteAllBytes(@"memoryDump.bin", buffer);
+
                     MessageBox.Show("Memory dump complete!");
                 }
                 catch (Exception) {

@@ -267,7 +267,6 @@
             this.groupBox3.Controls.Add(this.richTextBox1);
             this.groupBox3.Controls.Add(this.button11);
             this.groupBox3.Controls.Add(this.button9);
-            this.groupBox3.Enabled = false;
             this.groupBox3.Location = new System.Drawing.Point(661, 363);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(263, 207);
